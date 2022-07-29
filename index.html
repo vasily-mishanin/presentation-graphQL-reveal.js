@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title>reveal.js</title>
+
+    <link rel="stylesheet" href="dist/reset.css" />
+    <link rel="stylesheet" href="dist/reveal.css" />
+    <link rel="stylesheet" href="dist/theme/black.css" />
+
+    <!-- Theme used for syntax highlighted code -->
+    <link rel="stylesheet" href="plugin/highlight/monokai.css" />
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <i class="badge">1</i>
+          <img src="./assets/img/logo-graphgl.png" width="20%" alt="logo" />
+          <div>
+            <ul>
+              <li class="fragment fade-in">The very <b>basics</b> of GraphQL</li>
+              <li class="fragment">GraphQL toolchain - Appolo, Relay</li>
+              <li class="fragment">How To GraphQL - simple example</li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <i class="badge">2</i>
+          <h4>What is GraphQL ?</h4>
+          <div>
+            <p class="r-fit-text fragment">GraphQL is a <em style="color: salmon">query language</em> for APIs and ...</p>
+            <p class="r-fit-text fragment">a <em style="color: salmon">runtime</em> for fulfilling those queries with your existing data.</p>
+            <ul>
+              <li class="fragment fade-in">Understandable <em style="color: sandybrown">description</em> of the data</li>
+              <li class="fragment">Ask for <em style="color: sandybrown">exactly</em> what you need</li>
+              <li class="fragment"><em style="color: sandybrown">Easier to evolve</em> APIs over time</li>
+            </ul>
+            <div></div>
+            <p class="fragment" style="font-size: 2rem; margin-top: 2rem">
+              <b style="color: lightskyblue">Facebook's</b> mobile apps have been powered by GraphQL since 2012.
+            </p>
+            <p class="fragment" style="font-size: 2rem; margin-top: 2rem">Open sourced in 2015</p>
+          </div>
+        </section>
+
+        <section>
+          <i class="badge">3</i>
+          <p>Remember REST API?</p>
+          <div class="fragment" style="font-size: 1.5rem; margin-top: 2rem">
+            <table>
+              <tr class="fragment">
+                <td style="border-right: 1px solid white">REST is an architectural concept for network-based software</td>
+                <td>GraphQL is a specification, a query language</td>
+              </tr>
+              <tr class="fragment">
+                <td style="border-right: 1px solid white">Get complete datasets, overfetching</td>
+                <td>“Have it your way” by describing exactly what you want</td>
+              </tr>
+            </table>
+            <p style="border-right: 5px solid white"></p>
+          </div>
+          <img class="fragment" src="./assets/img/GraphQL Vs. REST APIs.png" width="70%" alt="REST vs GraphQL image" />
+        </section>
+
+        <section>
+          <i class="badge">4</i>
+          <div style="display: flex; gap: 2rem; margin-top: 2rem">
+            <img src="./assets/img/rest.png" alt="REST API" width="50%" />
+            <img src="./assets/img/graphql.png" alt="REST API" width="50%" />
+          </div>
+          <a
+            class="fragment"
+            style="color: sandybrown; text-decoration: underline"
+            href="https://hygraph.com/blog/graphql-vs-rest-apis#graphql-vs-rest"
+          >
+            GraphQL IS NOT an alternative to REST
+          </a>
+        </section>
+
+        <section>
+          <i class="badge">5</i>
+          <p>GraphQL Flow</p>
+          <img src="./assets/img/graphql_flow.png" alt="graphql flow image" />
+        </section>
+
+        <section>
+          <i class="badge">6</i>
+          <p class="r-fit-text" style="margin-top: 2rem">A GraphQL service is created by defining <u>types</u> and fields on those types</p>
+          <pre><code data-trim data-noescape>
+			type Query {
+				me: User
+			  }
+			  
+			  type User {
+				id: ID
+				name: String
+			  }
+					  </code></pre>
+          <p class="r-fit-text">...then providing <u>functions</u> for each field on each type</p>
+          <pre><code data-trim data-noescape>
+			function Query_me(request) {
+				return request.auth.user;
+			  }
+			  
+			  function User_name(user) {
+				return user.getName();
+			  }
+			</code></pre>
+        </section>
+
+        <section>
+          <i class="badge">7</i>
+          <p class="r-fit-text" style="margin-top: 2rem">Service checks a query and then runs the functions to produce a result.</p>
+          <pre><code data-trim data-noescape>
+			{
+				me {
+				  name
+				}
+			}
+						</code></pre>
+          <p>like this JSON:</p>
+          <pre><code data-trim data-noescape>
+			{
+				"me": {
+				  "name": "Luke Skywalker"
+				}
+			}
+			</code></pre>
+        </section>
+
+        <section>
+          <i class="badge">8</i>
+          <p style="margin-top: 2rem"></p>
+          <pre><code>
+			{
+				academyPosts {
+				  title
+				}
+			}
+		  </code></pre>
+          <pre style="font-size: 0.75rem"><code>
+			{
+				"data": {
+				  "academyPosts": [
+					{
+					  "title": "Headless Mobile Content Management System (Mobile CMS)"
+					},
+					{
+					  "title": "What is Content as a Service (Caas)"
+					},
+					{
+					  "title": "Headless CMS and SEO Best Practices"
+					},
+					{
+					  "title": "What Is A Headless CMS?"
+					},
+					{
+					  "title": "Understanding Digital Experience Platforms (DXP) and Headless CMS"
+					},
+					{
+					  "title": "Understanding the Content Mesh and how a Headless CMS fits in."
+					},
+					{
+					  "title": "The Era of Application Content"
+					},
+					{
+					  "title": "Best Practices for Headless Content Modelling"
+					},
+					{
+					  "title": "Choosing the best Headless CMS"
+					},
+					{
+					  "title": "What is GraphQL?"
+					},
+					{
+					  "title": "Choosing a Headless CMS for Content Creators"
+					},
+					{
+					  "title": "Selecting a Headless CMS - a Checklist"
+					},
+					{
+					  "title": "What is a DXP (Digital Experience Platform)?"
+					},
+					{
+					  "title": "What is the JAMStack?"
+					}
+				  ]
+				}
+			  }
+		  </code></pre>
+        </section>
+
+        <section>
+          <i class="badge">9</i>
+          <p style="margin-top: 2rem">GraphQL toolchain - Appolo</p>
+          <div style="display: flex; align-items: center; justify-content: space-around; font-size: 2rem">
+            <img src="./assets/img/logo-appolo.png" width="15%" alt="logo appolo image" />
+            <span>The Apollo Supergraph Platform</span>
+          </div>
+          <img src="./assets/img/appolo-supergraph.png" width="60%" alt="appolo-supergraph" />
+          <p style="font-size: 2rem">Nice tutorials with official certifications</p>
+          <p class="fragment">Client, Backend and Cloud</p>
+        </section>
+
+        <section>
+          <i class="badge">10</i>
+          <p style="margin-top: 2rem">GraphQL toolchain - Relay</p>
+          <div style="display: flex; align-items: center; justify-content: space-around; font-size: 2rem">
+            <img src="./assets/img/logo-relay.png" width="15%" alt="logo appolo image" />
+            <span> JS framework for managing GraphQL in React Apps </span>
+          </div>
+          <p style="font-size: 2rem">components declare what data they need, and Relay figures out how to efficiently fetch it</p>
+        </section>
+
+        <section>
+          <i class="badge">11</i>
+          <p style="margin-top: 2rem">Sources</p>
+          <ul style="list-style-type: none">
+            <li><a href="https://graphql.org/">GraphQL</a></li>
+            <li><a href="https://hygraph.com/blog/graphql-vs-rest-apis#graphql-vs-rest">GraphQL Vs. REST APIs</a></li>
+            <li><a href="https://www.apollographql.com/">Apollo</a></li>
+            <li><a href="https://relay.dev/">Relay</a></li>
+            <li><a href="https://www.youtube.com/watch?v=783ccP__No8">GraphQL: The Documentary Film</a></li>
+          </ul>
+        </section>
+      </div>
+    </div>
+
+    <script src="dist/reveal.js"></script>
+    <script src="plugin/notes/notes.js"></script>
+    <script src="plugin/markdown/markdown.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
+    <script>
+      // More info about initialization & config:
+      // - https://revealjs.com/initialization/
+      // - https://revealjs.com/config/
+      Reveal.initialize({
+        hash: true,
+
+        // Learn about plugins: https://revealjs.com/plugins/
+        plugins: [RevealMarkdown, RevealHighlight, RevealNotes],
+      });
+    </script>
+  </body>
+</html>
